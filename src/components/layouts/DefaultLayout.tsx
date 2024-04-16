@@ -11,9 +11,7 @@ export const DefaultLayout = () => (
       </Anchor>
     </AppShell.Header>
     <AppShell.Main>
-      <div className={classes.main}>
-        <Outlet />
-      </div>
+      <Outlet />
     </AppShell.Main>
   </AppShell>
 );

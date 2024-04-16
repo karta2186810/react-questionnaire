@@ -1,9 +1,10 @@
 .home {
   display: flex;
+  justify-content: start;
   align-items: center;
   min-height: 100%;
   gap: rem(40);
-  min-height: calc(100vh - rem(140));
+  min-height: calc(100vh - var(--app-shell-header-height));
 }
 .block {
   flex: 1;
