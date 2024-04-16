@@ -1,0 +1,21 @@
+.home {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  gap: rem(40);
+  min-height: calc(100vh - rem(140));
+}
+.block {
+  flex: 1;
+}
+.logo-wrapper {
+  display: flex;
+  gap: rem(12);
+  align-items: center;
+}
+.logo {
+  width: rem(64);
+}
+.bg-image {
+  width: 100%;
+}

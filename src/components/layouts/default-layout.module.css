@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: rem(20);
+  padding-right: rem(20);
+}
+
+.main {
+  padding-top: rem(40);
+  padding-bottom: rem(40);
+}
