@@ -1,7 +1,7 @@
 import { AppShell, Anchor } from '@mantine/core';
 import { Outlet, Link } from 'react-router-dom';
 import { Logo } from '@/components/elements';
-import classes from './default-layout.module.css';
+import classes from './DefaultLayout.module.css';
 
 export const DefaultLayout = () => (
   <AppShell header={{ height: 60 }}>
