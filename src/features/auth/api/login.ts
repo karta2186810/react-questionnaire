@@ -1,6 +1,6 @@
 import { axios } from '@/libs/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AUTH_USER_QUERY_KEY } from './getUser';
+import { authKeys } from './queries';
 import { AuthUser } from '../types';
 import { storage } from '@/utils/storage';
 
@@ -19,7 +19,7 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (loginDTO: LoginDTO) => login(loginDTO),
     onSuccess(authUser, { rememberMe }) {
-      queryClient.setQueryData<AuthUser>(AUTH_USER_QUERY_KEY, authUser);
+      queryClient.setQueryData<AuthUser>(authKeys.user, authUser);
       if (rememberMe) storage.setAuthUser(authUser);
     },
   });
