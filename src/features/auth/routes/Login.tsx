@@ -1,10 +1,29 @@
 import { Link } from 'react-router-dom';
-import { Center, Card, Stack, Title, Text, Anchor, TextInput, Button, Group } from '@mantine/core';
-import { IconUser } from '@tabler/icons-react';
+import {
+  Center,
+  Card,
+  Stack,
+  Title,
+  Text,
+  Anchor,
+  TextInput,
+  PasswordInput,
+  Button,
+  Group,
+  Checkbox,
+  rem,
+} from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { IconUser, IconCheck } from '@tabler/icons-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useLogin } from '../api';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const { isPending, mutate: login } = useLogin();
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -14,10 +33,22 @@ export const Login = () => {
     validationSchema: Yup.object({
       username: Yup.string().required('必填'),
       password: Yup.string().required('必填'),
-      rememberMe: Yup.boolean().required('必填'),
+      rememberMe: Yup.boolean(),
     }),
-    onSubmit(values) {
-      console.log(values);
+    async onSubmit({ username, password, rememberMe }) {
+      login(
+        { username, password, rememberMe },
+        {
+          onSuccess: () => {
+            navigate('/');
+            notifications.show({
+              message: '登入成功',
+              color: 'teal',
+              icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
+            });
+          },
+        },
+      );
     },
   });
 
@@ -42,19 +73,29 @@ export const Login = () => {
             label="用戶名"
             name="username"
             value={formik.values.username}
-            error={formik.errors.username}
+            error={formik.touched.username && formik.errors.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            disabled={isPending}
           />
-          <TextInput
+          <PasswordInput
             label="密碼"
             name="password"
             value={formik.values.password}
-            error={formik.errors.password}
+            error={formik.touched.password && formik.errors.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            disabled={isPending}
           />
-          <Button type="submit">登入</Button>
+          <Checkbox
+            label="記住我"
+            name="rememberMe"
+            checked={formik.values.rememberMe}
+            onChange={formik.handleChange}
+          />
+          <Button type="submit" disabled={isPending}>
+            登入
+          </Button>
           <Text ta="center">
             尚未有帳戶?
             <Anchor component={Link} to="/auth/register">

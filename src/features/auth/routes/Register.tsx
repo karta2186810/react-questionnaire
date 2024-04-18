@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
-import { Card, TextInput, Center, Group, Title, Stack, Button, Anchor, Text } from '@mantine/core';
-import { IconUserPlus } from '@tabler/icons-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Card, TextInput, Center, Group, Title, Stack, Button, Anchor, Text, rem } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconUserPlus } from '@tabler/icons-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useRegister } from '../api/register';
 
 export const Register = () => {
+  const { isPending, mutate: register } = useRegister();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -21,7 +25,16 @@ export const Register = () => {
       nickname: Yup.string().required('必填'),
     }),
     onSubmit(values) {
-      console.log(values);
+      register(values, {
+        onSuccess: () => {
+          navigate('/');
+          notifications.show({
+            message: '註冊成功',
+            color: 'teal',
+            icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
+          });
+        },
+      });
     },
   });
 
@@ -49,6 +62,7 @@ export const Register = () => {
             error={formik.errors.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            disabled={isPending}
           />
           <TextInput
             label="密碼"
@@ -57,6 +71,7 @@ export const Register = () => {
             error={formik.errors.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            disabled={isPending}
           />
           <TextInput
             label="確認密碼"
@@ -65,6 +80,7 @@ export const Register = () => {
             error={formik.errors.repeatPassword}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            disabled={isPending}
           />
           <TextInput
             label="暱稱"
@@ -73,8 +89,11 @@ export const Register = () => {
             error={formik.errors.nickname}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            disabled={isPending}
           />
-          <Button type="submit">註冊</Button>
+          <Button type="submit" disabled={isPending}>
+            註冊
+          </Button>
           <Text ta="center">
             已經有帳戶?
             <Anchor component={Link} to="/auth/login">
