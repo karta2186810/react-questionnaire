@@ -7,7 +7,7 @@ export const useLogout = () => {
 
   const logout = () => {
     queryClient.setQueryData(authKeys.user, null);
-    storage.removeAuthUser();
+    storage.removeAuthToken();
   };
 
   return {

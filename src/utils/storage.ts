@@ -1,24 +1,14 @@
-import { AuthUser } from '@/features/auth';
-
 class Storage {
-  private authUserKey = 'react_questionnaire_auth_user';
+  private authTokenKey = 'react_questionnaire_auth_token';
 
-  getAuthUser(): AuthUser | null {
-    const authUser = localStorage.getItem(this.authUserKey);
-
-    if (!authUser) return null;
-
-    try {
-      return JSON.parse(authUser) as AuthUser;
-    } catch (e) {
-      return null;
-    }
+  getAuthToken() {
+    return localStorage.getItem(this.authTokenKey);
   }
-  setAuthUser(user: AuthUser) {
-    localStorage.setItem(this.authUserKey, JSON.stringify(user));
+  setAuthToken(token: string) {
+    localStorage.setItem(this.authTokenKey, token);
   }
-  removeAuthUser() {
-    localStorage.removeItem(this.authUserKey);
+  removeAuthToken() {
+    localStorage.removeItem(this.authTokenKey);
   }
 }
 

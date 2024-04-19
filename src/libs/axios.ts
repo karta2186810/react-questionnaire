@@ -11,7 +11,7 @@ export const axios = Axios.create({
 });
 
 axios.interceptors.request.use((config) => {
-  config.headers['Authorization'] = `Bearer ${storage.getAuthUser()?.token}`;
+  config.headers['Authorization'] = `Bearer ${storage.getAuthToken()}`;
   return config;
 });
 

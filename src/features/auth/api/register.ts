@@ -1,6 +1,5 @@
 import { axios } from '@/libs/axios';
 import { useMutation } from '@tanstack/react-query';
-import { AuthUser } from '../types';
 
 export type RegisterDTO = {
   username: string;
@@ -9,8 +8,12 @@ export type RegisterDTO = {
   nickname: string;
 };
 
+export type RegisterResponse = {
+  success: boolean;
+};
+
 function register(registerDTO: RegisterDTO) {
-  return axios.post<never, AuthUser>('/auth/register', registerDTO);
+  return axios.post<never, RegisterResponse>('/auth/register', registerDTO);
 }
 
 export const useRegister = () => useMutation({ mutationFn: register });

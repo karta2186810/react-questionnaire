@@ -1,9 +1,16 @@
-import { Title } from '@mantine/core';
+import { RouterProvider } from 'react-router-dom';
+import { ThemeProvider, QueryClientProvider, NotificationProvider } from '@/providers';
+import { router } from './router';
+
 function App() {
   return (
-    <>
-      <Title order={1}>Hello World</Title>
-    </>
+    <QueryClientProvider>
+      <ThemeProvider>
+        <NotificationProvider>
+          <RouterProvider router={router} />
+        </NotificationProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

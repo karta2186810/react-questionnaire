@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
-import { ThemeProvider, QueryClientProvider, NotificationProvider } from '@/providers';
-import { router } from './router';
 import { IS_DEV } from './config';
 import { setupMockServer } from './mocks';
+import App from './App';
 
 bootstrap();
 
@@ -13,13 +11,7 @@ async function bootstrap() {
 
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <QueryClientProvider>
-        <ThemeProvider>
-          <NotificationProvider>
-            <RouterProvider router={router} />
-          </NotificationProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
+      <App />
     </React.StrictMode>,
   );
 }

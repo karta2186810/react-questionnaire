@@ -10,17 +10,23 @@ export type LoginDTO = {
   rememberMe: boolean;
 };
 
+export type LoginResponse = {
+  token: string;
+  username: string;
+  nickname: string;
+};
+
 function login(loginDTO: LoginDTO) {
-  return axios.post<unknown, AuthUser>('/auth/login', loginDTO);
+  return axios.post<unknown, LoginResponse>('/auth/login', loginDTO);
 }
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (loginDTO: LoginDTO) => login(loginDTO),
-    onSuccess(authUser, { rememberMe }) {
-      queryClient.setQueryData<AuthUser>(authKeys.user, authUser);
-      if (rememberMe) storage.setAuthUser(authUser);
+    onSuccess({ token, username, nickname }, { rememberMe }) {
+      queryClient.setQueryData<AuthUser>(authKeys.user, { username, nickname });
+      if (rememberMe) storage.setAuthToken(token);
     },
   });
 };
