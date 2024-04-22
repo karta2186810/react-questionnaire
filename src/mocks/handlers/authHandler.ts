@@ -24,7 +24,6 @@ export const authHandlers = [
     if (username !== DEV_USERNAME || password !== DEV_PASSWORD) {
       return HttpResponse.json({ message: '帳號或密碼錯誤' }, { status: 404 });
     }
-    console.log(DEV_AUTH_TOKEN);
     return HttpResponse.json<LoginResponse>({
       username: DEV_USERNAME,
       nickname: DEV_NICKNAME,

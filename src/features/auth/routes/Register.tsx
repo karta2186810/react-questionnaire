@@ -29,7 +29,8 @@ export const Register = () => {
         onSuccess: () => {
           navigate('/');
           notifications.show({
-            message: '註冊成功',
+            title: '註冊成功',
+            message: '請使用帳號與密碼進行登入',
             color: 'teal',
             icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
           });

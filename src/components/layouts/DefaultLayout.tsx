@@ -1,12 +1,18 @@
 import { AppShell, Anchor, Text, Button, Group } from '@mantine/core';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import classes from './DefaultLayout.module.css';
 import { Logo } from '@/components/elements';
 import { useUser, useLogout } from '@/features/auth';
 
 export const DefaultLayout = () => {
+  const navigate = useNavigate();
   const { data: user } = useUser();
   const { logout } = useLogout();
+
+  function handleLogout() {
+    logout();
+    navigate('/');
+  }
 
   return (
     <AppShell header={{ height: 60 }}>
@@ -17,7 +23,7 @@ export const DefaultLayout = () => {
         {user ? (
           <Group>
             <Text>Hi, {user.nickname}</Text>
-            <Button variant="subtle" onClick={logout}>
+            <Button variant="subtle" onClick={handleLogout}>
               登出
             </Button>
           </Group>

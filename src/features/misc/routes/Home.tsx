@@ -1,5 +1,5 @@
 import { Title, Button, Container } from '@mantine/core';
-import classes from './home.module.css';
+import classes from './Home.module.css';
 import { Logo } from '@/components/elements';
 import { IconChevronRight } from '@tabler/icons-react';
 import homePageBg from '@/assets/images/homepage-bg.svg';

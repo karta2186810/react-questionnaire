@@ -8,9 +8,9 @@ const getUser = () => axios.get<never, AuthUser>('/auth/me');
 export const useUser = () => {
   return useQuery<AuthUser | null>({
     queryKey: authKeys.user,
-    queryFn: () => getUser(),
+    queryFn: getUser,
     initialData: null,
-    retry: false,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   });

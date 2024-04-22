@@ -1,16 +1,15 @@
-import { RouterProvider } from 'react-router-dom';
-import { ThemeProvider, QueryClientProvider, NotificationProvider } from '@/providers';
-import { router } from './router';
+import { BrowserRouter } from 'react-router-dom';
+import { useUser } from '@/features/auth';
+import { AppRoutes } from './routes';
 
 function App() {
+  const { refetch } = useUser();
+  refetch();
+
   return (
-    <QueryClientProvider>
-      <ThemeProvider>
-        <NotificationProvider>
-          <RouterProvider router={router} />
-        </NotificationProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
