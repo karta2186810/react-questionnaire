@@ -11,10 +11,9 @@ import {
   Button,
   Group,
   Checkbox,
-  rem,
 } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
-import { IconUser, IconCheck } from '@tabler/icons-react';
+import { notification } from '@/libs/notification';
+import { IconUser } from '@tabler/icons-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLogin } from '../api';
@@ -41,11 +40,7 @@ export const Login = () => {
         {
           onSuccess: () => {
             navigate('/');
-            notifications.show({
-              message: '登入成功',
-              color: 'teal',
-              icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
-            });
+            notification.success({ message: '登入成功' });
           },
         },
       );

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Card, TextInput, Center, Group, Title, Stack, Button, Anchor, Text, rem } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
-import { IconCheck, IconUserPlus } from '@tabler/icons-react';
+import { Card, TextInput, Center, Group, Title, Stack, Button, Anchor, Text } from '@mantine/core';
+import { notification } from '@/libs/notification';
+import { IconUserPlus } from '@tabler/icons-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRegister } from '../api/register';
@@ -28,11 +28,9 @@ export const Register = () => {
       register(values, {
         onSuccess: () => {
           navigate('/');
-          notifications.show({
+          notification.success({
             title: '註冊成功',
             message: '請使用帳號與密碼進行登入',
-            color: 'teal',
-            icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
           });
         },
       });
