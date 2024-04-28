@@ -1,12 +1,10 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { storage } from '@/utils/storage';
-import { authKeys } from '../api/queries';
+import { useUser } from '../hooks/useUser';
 
 export const useLogout = () => {
-  const queryClient = useQueryClient();
-
+  const { setUser } = useUser();
   const logout = () => {
-    queryClient.setQueryData(authKeys.user, null);
+    setUser(null);
     storage.removeAuthToken();
   };
 

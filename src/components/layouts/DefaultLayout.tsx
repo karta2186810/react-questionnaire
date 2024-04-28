@@ -6,7 +6,7 @@ import { useUser, useLogout } from '@/features/auth';
 
 export const DefaultLayout = () => {
   const navigate = useNavigate();
-  const { data: user } = useUser();
+  const { user } = useUser();
   const { logout } = useLogout();
 
   function handleLogout() {

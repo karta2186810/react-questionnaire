@@ -2,6 +2,10 @@ import Axios, { AxiosError } from 'axios';
 import { API_BASE_URL } from '@/config';
 import { storage } from '@/utils/storage';
 
+export type ResponseError = {
+  message?: string;
+};
+
 export const axios = Axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -17,7 +21,7 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(
   (response) => response.data,
-  (error: AxiosError) => {
-    return Promise.reject(error);
+  (error: AxiosError<ResponseError>) => {
+    return Promise.reject(new Error(error.response?.data?.message ?? ''));
   },
 );

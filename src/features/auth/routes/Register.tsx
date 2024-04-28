@@ -4,7 +4,7 @@ import { notification } from '@/libs/notification';
 import { IconUserPlus } from '@tabler/icons-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useRegister } from '../api/register';
+import { useRegister } from '../hooks';
 
 export const Register = () => {
   const { isPending, mutate: register } = useRegister();
