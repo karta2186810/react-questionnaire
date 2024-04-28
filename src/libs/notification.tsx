@@ -1,6 +1,6 @@
 import { rem } from '@mantine/core';
 import { notifications, NotificationData } from '@mantine/notifications';
-import { IconCheck, IconCircleXFilled } from '@tabler/icons-react';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
 function success(notificationData: NotificationData) {
   notifications.show({
@@ -12,7 +12,7 @@ function success(notificationData: NotificationData) {
 function error(notificationData: NotificationData) {
   notifications.show({
     color: 'red',
-    icon: <IconCircleXFilled style={{ width: rem(18), height: rem(18) }} />,
+    icon: <IconX style={{ width: rem(18), height: rem(18) }} />,
     ...notificationData,
   });
 }

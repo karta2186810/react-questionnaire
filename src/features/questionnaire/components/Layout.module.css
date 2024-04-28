@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  min-height: calc(100dvh - var(--app-shell-header-height));
+}
+
+.main {
+  flex: 1;
+  padding-top: rem(40);
+  padding-bottom: rem(80);
+}

@@ -1,0 +1,10 @@
+.sidebar {
+  flex-shrink: 0;
+  width: rem(240);
+  border-right: 1px solid var(--mantine-color-default-border);
+}
+.sticky {
+  position: sticky;
+  left: 0;
+  top: var(--app-shell-header-height);
+}

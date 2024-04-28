@@ -1,8 +1,10 @@
 import { useRoutes } from 'react-router-dom';
 import { DefaultLayout } from '@/components/layouts';
+import { PublicRoutes } from './PublicRoutes';
+import { ProtectedRoutes } from './ProtectedRoutes';
 import { Home } from '@/features/misc/routes';
 import { Login, Register } from '@/features/auth';
-import { PublicRoutes } from './PublicRoutes';
+import { questionnaireRoutes } from '@/features/questionnaire';
 
 export const AppRoutes = () => {
   return useRoutes([
@@ -35,6 +37,10 @@ export const AppRoutes = () => {
           ],
         },
       ],
+    },
+    {
+      element: <ProtectedRoutes />,
+      children: questionnaireRoutes,
     },
   ]);
 };
