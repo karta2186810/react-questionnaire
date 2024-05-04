@@ -9,8 +9,10 @@ import { useUpdateQuestionnaire } from '../api/updateQuestionnaire';
 import { useDeleteQuestionnaires } from '../api/deleteQuestionnaires';
 import { questionnaireKeys } from '../api/queries';
 import { Layout } from '../components/Layout';
+import { useTitle } from '@/hooks/useTitle';
 
 export const RecycleBin = () => {
+  useTitle('垃圾桶');
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const keywords = searchParams.get('keywords') ?? undefined;

@@ -5,8 +5,10 @@ import { IconUserPlus } from '@tabler/icons-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRegister } from '../hooks';
+import { useTitle } from '@/hooks/useTitle';
 
 export const Register = () => {
+  useTitle('註冊');
   const { isPending, mutate: register } = useRegister();
   const navigate = useNavigate();
   const formik = useFormik({

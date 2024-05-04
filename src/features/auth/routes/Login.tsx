@@ -13,13 +13,15 @@ import {
   Checkbox,
 } from '@mantine/core';
 import { notification } from '@/libs/notification';
+import { useNavigate } from 'react-router-dom';
 import { IconUser } from '@tabler/icons-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLogin } from '../hooks';
-import { useNavigate } from 'react-router-dom';
+import { useTitle } from '@/hooks/useTitle';
 
 export const Login = () => {
+  useTitle('登入');
   const navigate = useNavigate();
   const { isPending, mutate: login } = useLogin();
 
