@@ -8,19 +8,23 @@ import { Edit } from './Edit';
 export const questionnaireRoutes: RouteObject[] = [
   {
     path: '/questionnaires',
-    element: <DefaultLayout />,
     children: [
       {
-        path: 'list',
-        element: <List />,
-      },
-      {
-        path: 'recycle-bin',
-        element: <RecycleBin />,
-      },
-      {
-        path: 'favorites',
-        element: <Favorites />,
+        element: <DefaultLayout />,
+        children: [
+          {
+            path: 'list',
+            element: <List />,
+          },
+          {
+            path: 'recycle-bin',
+            element: <RecycleBin />,
+          },
+          {
+            path: 'favorites',
+            element: <Favorites />,
+          },
+        ],
       },
       {
         path: ':id/edit',
