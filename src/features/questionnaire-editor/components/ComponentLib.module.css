@@ -1,0 +1,17 @@
+.left-panel {
+  padding-top: rem(20px);
+}
+.component-wrapper {
+  padding: rem(12px);
+  border-radius: var(--mantine-radius-sm);
+  cursor: pointer;
+  background-color: var(--mantine-color-gray-1);
+  @mixin hover {
+    outline: 1px solid var(--mantine-color-gray-4);
+  }
+}
+
+.component {
+  user-select: none;
+  pointer-events: none;
+}

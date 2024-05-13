@@ -1,0 +1,45 @@
+.edit-layout {
+  width: 100vw;
+  height: 100dvh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--mantine-color-gray-3);
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+}
+
+.canvas,
+.left,
+.right {
+  position: relative;
+}
+.left,
+.right {
+  width: rem(320px);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: rem(20px);
+}
+
+.canvas {
+  flex: 1;
+  max-width: rem(400px);
+}
+
+.scroll {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}

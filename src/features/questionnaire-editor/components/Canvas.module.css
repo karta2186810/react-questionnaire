@@ -1,0 +1,23 @@
+.canvas {
+  padding: rem(20px);
+  position: relative;
+}
+.component-wrapper {
+  padding: rem(12px);
+  border-radius: var(--mantine-radius-sm);
+  cursor: pointer;
+  @mixin hover {
+    outline: 1px solid var(--mantine-color-gray-4);
+  }
+}
+.component-wrapper:not(:first-child) {
+  margin-top: rem(12px);
+}
+.component-wrapper--active {
+  outline: 1px solid var(--mantine-color-blue-4) !important;
+}
+
+.component {
+  user-select: none;
+  pointer-events: none;
+}

@@ -32,9 +32,9 @@ export const Sidebar = () => {
             創建問卷
           </Button>
         </Box>
-        <NavLink to="/questionnaires/list" label="我的問卷"></NavLink>
-        <NavLink to="/questionnaires/favorites" label="我的最愛"></NavLink>
-        <NavLink to="/questionnaires/recycle-bin" label="垃圾桶"></NavLink>
+        <NavLink to="/management/list" label="我的問卷"></NavLink>
+        <NavLink to="/management/favorites" label="我的最愛"></NavLink>
+        <NavLink to="/management/recycle-bin" label="垃圾桶"></NavLink>
       </div>
     </div>
   );

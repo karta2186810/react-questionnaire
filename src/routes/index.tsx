@@ -4,7 +4,8 @@ import { PublicRoutes } from './PublicRoutes';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { Home } from '@/features/misc/routes';
 import { Login, Register } from '@/features/auth';
-import { questionnaireRoutes } from '@/features/questionnaire';
+import { managementRoutes } from '@/features/management';
+import { questionnaireEditorRoutes } from '@/features/questionnaire-editor';
 
 export const AppRoutes = () => {
   return useRoutes([
@@ -40,7 +41,11 @@ export const AppRoutes = () => {
     },
     {
       element: <ProtectedRoutes />,
-      children: questionnaireRoutes,
+      children: managementRoutes,
+    },
+    {
+      element: <ProtectedRoutes />,
+      children: questionnaireEditorRoutes,
     },
   ]);
 };

@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { faker } from '../faker';
 import { getDateString } from '../utils/getDateString';
-import { Questionnaire } from '@/features/questionnaire';
+import { Questionnaire } from '@/features/management';
 
 type Options = {
   count?: number;
