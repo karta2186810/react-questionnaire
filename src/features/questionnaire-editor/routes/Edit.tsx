@@ -10,18 +10,15 @@ import { RightPanel } from '../components/RightPanel';
 
 export const Edit = () => {
   const { id = '' } = useParams();
-  const query = useQuestionnaire(id);
+  const { data, isFetching } = useQuestionnaire(id);
   const { resetList, setSelectedId } = useComponentListStore((state) => ({
-    list: state.current,
     resetList: state.resetList,
     setSelectedId: state.setSelectedId,
   }));
 
   useEffect(() => {
-    const components = query.data.components;
-    resetList(components);
-    if (components.length) setSelectedId(components[0].frontendId);
-  }, [query.data, resetList, setSelectedId]);
+    resetList(data.components);
+  }, [data]);
 
   return (
     <div className={classes['edit-layout']}>
@@ -32,7 +29,7 @@ export const Edit = () => {
         </Card>
         <main className={classes.main} onClick={() => setSelectedId('')}>
           <Card className={classes.canvas} withBorder shadow="md">
-            <LoadingOverlay visible={query.isFetching} zIndex={1000} />
+            <LoadingOverlay visible={isFetching} zIndex={1000} />
             <div className={classes.scroll}>
               <Canvas />
             </div>

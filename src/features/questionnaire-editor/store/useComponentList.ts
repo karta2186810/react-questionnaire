@@ -4,17 +4,15 @@ import { immer } from 'zustand/middleware/immer';
 import { ComponentConfig, ComponentInfo } from '../types';
 import { nanoid } from 'nanoid';
 
-type Component = ComponentInfo & {
-  frontendId: string;
-};
+type ComponentList = (ComponentInfo & { frontendId: string })[];
 
 type ComponentListStore = {
   selectedId: string;
-  previous: Component[][];
-  current: Component[];
-  forward: Component[][];
+  previous: ComponentList[];
+  current: ComponentList;
+  forward: ComponentList[];
   setSelectedId: (id: string) => void;
-  resetList: (list?: Component[]) => void;
+  resetList: (list?: ComponentInfo[]) => void;
   undo: () => void;
   redo: () => void;
   addComponent: (config: ComponentConfig) => void;
@@ -36,14 +34,17 @@ export const useComponentListStore = create<ComponentListStore>()(
           state.selectedId = id;
         });
       },
-      resetList(list: Component[] = []) {
+      resetList(list: ComponentInfo[] = []) {
         set((state) => {
           state.previous = [];
-          state.current = list;
+          state.current = list.map((component) => ({ ...component, frontendId: nanoid() }));
           state.forward = [];
+          if (state.current.length) {
+            state.selectedId = state.current[0].frontendId;
+          }
         });
       },
-      setList(list: Component[]) {
+      setList(list: ComponentList) {
         isTracking = true;
         set((state) => {
           state.current = list;

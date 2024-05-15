@@ -1,7 +1,6 @@
 import { axios } from '@/libs/axios';
 import { useQuery } from '@tanstack/react-query';
 import { ComponentInfo } from '../types';
-import { nanoid } from 'nanoid';
 import { BaseEntity } from '@/types';
 
 export type GetQuestionnaireResponse = BaseEntity & {
@@ -22,9 +21,5 @@ export const useQuestionnaire = (id: string) => {
       title: '',
       components: [],
     },
-    select: (data) => ({
-      ...data,
-      components: data.components.map((component) => ({ ...component, frontendId: nanoid() })),
-    }),
   });
 };
