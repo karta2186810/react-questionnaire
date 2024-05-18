@@ -10,14 +10,21 @@ export type BaseComponentConfig<Identify, PropsType> = {
 };
 
 export type ComponentProps = TitleProps & InputProps;
+
 export type ComponentInfo = {
   title: string;
   type: string;
   props: ComponentProps;
 };
+
 export type ComponentConfig = {
   title: string;
   type: string;
   defaultProps: ComponentProps;
   Component: FC<ComponentProps>;
+  PropsForm: FC<PropsFormProps<ComponentProps>>;
+};
+
+export type PropsFormProps<T> = T & {
+  onChange?: (value: Partial<T>) => void;
 };

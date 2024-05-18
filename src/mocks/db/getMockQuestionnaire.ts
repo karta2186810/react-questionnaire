@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid';
 import { faker } from '../faker';
-import { GetQuestionnaireResponse } from '@/features/questionnaire-editor';
 
-export function getMockQuestionnaire(): GetQuestionnaireResponse {
+export function getMockQuestionnaire() {
   return {
     _id: nanoid(),
     title: faker.company.buzzNoun(),
@@ -14,6 +13,15 @@ export function getMockQuestionnaire(): GetQuestionnaireResponse {
           text: '遠端工作成效問卷',
           isCenter: true,
           order: 1,
+        },
+      },
+      {
+        type: 'questionnaireTitle',
+        title: '遠端工作成效問卷1',
+        props: {
+          text: '遠端工作成效問卷1',
+          isCenter: false,
+          order: 2,
         },
       },
       {

@@ -1,4 +1,5 @@
 import { Title, TitleProps } from './Component';
+import { TitlePropsForm } from './PropsForm';
 import { ComponentConfig } from '../../types';
 
 export const TITLE_IDENTIFY = 'questionnaireTitle';
@@ -13,6 +14,7 @@ export const TITLE_CONFIG: ComponentConfig = {
   defaultProps: DEFAULT_TITLE_PROPS,
   type: TITLE_IDENTIFY,
   Component: Title,
+  PropsForm: TitlePropsForm,
 };
 
 export * from './Component';

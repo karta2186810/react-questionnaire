@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import { ComponentConfig, ComponentInfo } from '../types';
 import { nanoid } from 'nanoid';
+import { ComponentConfig, ComponentInfo, ComponentProps } from '../types';
 
 type ComponentList = (ComponentInfo & { frontendId: string })[];
 
@@ -12,10 +12,11 @@ type ComponentListStore = {
   current: ComponentList;
   forward: ComponentList[];
   setSelectedId: (id: string) => void;
-  resetList: (list?: ComponentInfo[]) => void;
+  resetList: (list: ComponentList) => void;
   undo: () => void;
   redo: () => void;
   addComponent: (config: ComponentConfig) => void;
+  updateComponent: (id: string, newProps: Partial<ComponentProps>) => void;
   removeComponent: (id: string) => void;
 };
 
@@ -34,14 +35,11 @@ export const useComponentListStore = create<ComponentListStore>()(
           state.selectedId = id;
         });
       },
-      resetList(list: ComponentInfo[] = []) {
+      resetList(list: ComponentList = []) {
         set((state) => {
           state.previous = [];
-          state.current = list.map((component) => ({ ...component, frontendId: nanoid() }));
+          state.current = list;
           state.forward = [];
-          if (state.current.length) {
-            state.selectedId = state.current[0].frontendId;
-          }
         });
       },
       setList(list: ComponentList) {
@@ -81,6 +79,12 @@ export const useComponentListStore = create<ComponentListStore>()(
             state.selectedId = state.current[targetIndex + 1].frontendId;
           }
           state.current.splice(targetIndex, 1);
+        });
+      },
+      updateComponent(id: string, newProps: Partial<ComponentProps>) {
+        set((state) => {
+          const index = state.current.findIndex((c) => c.frontendId === id);
+          state.current[index].props = { ...state.current[index].props, ...newProps };
         });
       },
       undo() {

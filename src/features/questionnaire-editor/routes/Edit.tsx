@@ -17,8 +17,10 @@ export const Edit = () => {
   }));
 
   useEffect(() => {
-    resetList(data.components);
-  }, [data]);
+    const components = data.components;
+    resetList(components);
+    if (components.length) setSelectedId(components[0].frontendId);
+  }, [data, resetList, setSelectedId]);
 
   return (
     <div className={classes['edit-layout']}>
