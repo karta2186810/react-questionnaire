@@ -1,7 +1,8 @@
 import { nanoid } from 'nanoid';
 import { faker } from '../faker';
+import { GetQuestionnaireResponse } from '@/features/questionnaire-editor/api/getQuestionnaire';
 
-export function getMockQuestionnaire() {
+export function getMockQuestionnaire(): GetQuestionnaireResponse {
   return {
     _id: nanoid(),
     title: faker.company.buzzNoun(),
@@ -14,6 +15,8 @@ export function getMockQuestionnaire() {
           isCenter: true,
           order: 1,
         },
+        isVisible: true,
+        isLocked: false,
       },
       {
         type: 'questionnaireTitle',
@@ -23,6 +26,8 @@ export function getMockQuestionnaire() {
           isCenter: false,
           order: 2,
         },
+        isVisible: true,
+        isLocked: true,
       },
       {
         type: 'questionnaireInput',
@@ -31,6 +36,8 @@ export function getMockQuestionnaire() {
           label: '姓名',
           placeholder: '請輸入姓名...',
         },
+        isVisible: true,
+        isLocked: false,
       },
     ],
   };

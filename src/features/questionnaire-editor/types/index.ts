@@ -15,6 +15,8 @@ export type ComponentInfo = {
   title: string;
   type: string;
   props: ComponentProps;
+  isLocked: boolean;
+  isVisible: boolean;
 };
 
 export type ComponentConfig = {

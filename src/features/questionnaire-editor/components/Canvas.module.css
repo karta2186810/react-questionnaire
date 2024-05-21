@@ -17,6 +17,13 @@
   outline: 1px solid var(--mantine-color-blue-4) !important;
 }
 
+.component-wrapper--locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.component-wrapper--locked.component-wrapper--active {
+  outline: 1px solid var(--mantine-color-gray-6) !important;
+}
 .component {
   user-select: none;
   pointer-events: none;

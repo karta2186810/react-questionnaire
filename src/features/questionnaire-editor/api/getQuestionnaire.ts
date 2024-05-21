@@ -14,7 +14,10 @@ export const getQuestionnaire = (id: string) => axios.get<never, GetQuestionnair
 const questionnaireSelector = (data: GetQuestionnaireResponse) => {
   const components = data.components;
 
-  return { ...data, components: components.map((c) => ({ ...c, frontendId: nanoid() })) };
+  return {
+    ...data,
+    components: components.map((c) => ({ ...c, frontendId: nanoid() })),
+  };
 };
 
 export const useQuestionnaire = (id: string) => {

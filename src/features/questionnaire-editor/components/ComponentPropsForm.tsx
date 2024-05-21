@@ -13,12 +13,11 @@ const Empty = () => {
 };
 
 export const ComponentPropsForm = () => {
-  const updateComponent = useComponentListStore((state) => state.updateComponent);
+  const updateComponent = useComponentListStore((state) => state.updateComponentProps);
   const selectedComponent = useSelectedComponent();
 
   function handleChange(newProps: Partial<ComponentProps>) {
     if (!selectedComponent) return;
-    console.log(newProps);
     updateComponent(selectedComponent?.frontendId, newProps);
   }
 
@@ -31,5 +30,15 @@ export const ComponentPropsForm = () => {
 
   const { PropsForm } = config;
 
-  return <PropsForm {...props} onChange={handleChange} key={selectedComponent.frontendId} />;
+  return (
+    <div
+      style={{
+        opacity: selectedComponent?.isLocked ? 0.5 : 1,
+        cursor: selectedComponent?.isLocked ? 'not-allowed' : 'default',
+        pointerEvents: selectedComponent?.isLocked ? 'none' : 'auto',
+      }}
+    >
+      <PropsForm {...props} onChange={handleChange} key={selectedComponent.frontendId} />
+    </div>
+  );
 };

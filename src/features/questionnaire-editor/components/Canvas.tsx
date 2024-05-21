@@ -26,21 +26,24 @@ export const Canvas = () => {
 
   return (
     <div className={classes.canvas}>
-      {list.map((component) => {
-        const wrapperClass = clsx({
-          [classes['component-wrapper']]: true,
-          [classes['component-wrapper--active']]: selectedId === component.frontendId,
-        });
-        return (
-          <div
-            className={wrapperClass}
-            key={component.frontendId}
-            onClick={(e) => handleComponentClick(e, component.frontendId)}
-          >
-            <div className={classes.component}>{getComponent(component)}</div>
-          </div>
-        );
-      })}
+      {list
+        .filter((component) => component.isVisible)
+        .map((component) => {
+          const wrapperClass = clsx({
+            [classes['component-wrapper']]: true,
+            [classes['component-wrapper--active']]: selectedId === component.frontendId,
+            [classes['component-wrapper--locked']]: component.isLocked,
+          });
+          return (
+            <div
+              className={wrapperClass}
+              key={component.frontendId}
+              onClick={(e) => handleComponentClick(e, component.frontendId)}
+            >
+              <div className={classes.component}>{getComponent(component)}</div>
+            </div>
+          );
+        })}
     </div>
   );
 };
