@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import classes from './Canvas.module.css';
 import { useComponentListStore } from '../store/useComponentList';
 import { ComponentInfo } from '../types';
-import { getConfigByType } from '../utils/getConfigByType';
+import { getConfigByType } from '../components';
 
 const getComponent = (componentInfo: ComponentInfo) => {
   const config = getConfigByType(componentInfo.type);

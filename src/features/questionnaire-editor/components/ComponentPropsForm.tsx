@@ -1,7 +1,7 @@
 import { Title } from '@mantine/core';
 import { useComponentListStore } from '../store/useComponentList';
 import { useSelectedComponent } from '../hooks/useSelectedComponent';
-import { getConfigByType } from '../utils/getConfigByType';
+import { getConfigByType } from '../components';
 import { ComponentProps } from '../types';
 
 const Empty = () => {
