@@ -8,6 +8,7 @@ const DEV_NICKNAME = process.env.DEV_NICKNAME! as string;
 
 export const authHandlers = [
   http.get('/api/auth/me', ({ request }) => {
+    console.log(DEV_AUTH_TOKEN);
     const authorization = request.headers.get('Authorization');
 
     if (!authorization || authorization.split(' ')[1] !== DEV_AUTH_TOKEN) {
