@@ -1,10 +1,10 @@
 import { http, HttpResponse } from 'msw';
 import { AuthUser, LoginDTO, LoginResponse, RegisterResponse } from '@/features/auth';
 
-const DEV_AUTH_TOKEN = import.meta.env.VITE_DEV_AUTH_TOKEN! as string;
-const DEV_PASSWORD = import.meta.env.VITE_DEV_PASSWORD! as string;
-const DEV_USERNAME = import.meta.env.VITE_DEV_USERNAME! as string;
-const DEV_NICKNAME = import.meta.env.VITE_DEV_NICKNAME! as string;
+const DEV_AUTH_TOKEN = 'REACT_QUESTIONNAIRE_DEV_JWT';
+const DEV_PASSWORD = 'admin';
+const DEV_USERNAME = 'admin';
+const DEV_NICKNAME = 'Jack';
 
 export const authHandlers = [
   http.post('/api/auth/me', ({ request }) => {
