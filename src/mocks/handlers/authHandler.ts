@@ -7,7 +7,7 @@ const DEV_USERNAME = process.env.DEV_USERNAME! as string;
 const DEV_NICKNAME = process.env.DEV_NICKNAME! as string;
 
 export const authHandlers = [
-  http.get('/api/auth/me', ({ request }) => {
+  http.post('/api/auth/me', ({ request }) => {
     console.log(DEV_AUTH_TOKEN);
     const authorization = request.headers.get('Authorization');
 
