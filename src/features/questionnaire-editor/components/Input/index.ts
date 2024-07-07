@@ -8,7 +8,7 @@ export const DEFAULT_INPUT_PROPS: InputProps = {
   placeholder: '請輸入...',
 };
 
-export const INPUT_CONFIG: ComponentConfig = {
+export const INPUT_CONFIG: ComponentConfig<InputProps> = {
   title: '輸入框',
   Component: Input,
   PropsForm: InputPropsForm,

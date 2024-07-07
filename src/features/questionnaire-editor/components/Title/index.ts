@@ -9,7 +9,7 @@ export const DEFAULT_TITLE_PROPS: TitleProps = {
   text: '請輸入標題...',
 };
 
-export const TITLE_CONFIG: ComponentConfig = {
+export const TITLE_CONFIG: ComponentConfig<TitleProps> = {
   title: '標題',
   defaultProps: DEFAULT_TITLE_PROPS,
   type: TITLE_IDENTIFY,

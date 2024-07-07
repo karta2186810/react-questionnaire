@@ -3,8 +3,8 @@ import { TextInput } from '@mantine/core';
 import { DEFAULT_INPUT_PROPS } from './index';
 
 export type InputProps = {
-  label?: string;
-  placeholder?: string;
+  label: string;
+  placeholder: string;
 };
 
 export const Input: FC<InputProps> = (props) => {

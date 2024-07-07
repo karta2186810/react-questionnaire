@@ -11,10 +11,11 @@ import classes from './ComponentLib.module.css';
 type ComponentConfigGroup = {
   groupId: string;
   title: string;
-  configs: ComponentConfig[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  configs: ComponentConfig<any>[];
 };
 
-const COMPONENT_CONFIG_GROUP: ComponentConfigGroup[] = [
+const componentConfigGroup: ComponentConfigGroup[] = [
   {
     groupId: 'text',
     title: '文本組件',
@@ -34,7 +35,7 @@ export const ComponentLib = () => {
 
   return (
     <div className={classes['left-panel']}>
-      {COMPONENT_CONFIG_GROUP.map((group, index) => {
+      {componentConfigGroup.map((group, index) => {
         return (
           <div key={group.groupId}>
             {index > 0 && <Divider my="lg" />}

@@ -3,8 +3,8 @@ import { Textarea as MantineTextarea } from '@mantine/core';
 import { DEFAULT_TEXTAREA_PROPS } from './index';
 
 export type TextareaProps = {
-  label?: string;
-  placeholder?: string;
+  label: string;
+  placeholder: string;
 };
 
 export const Textarea: FC<TextareaProps> = (props) => {

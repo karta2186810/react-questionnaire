@@ -3,8 +3,8 @@ import { Text } from '@mantine/core';
 import { DEFAULT_PARAGRAPH_PROPS } from './index';
 
 export type ParagraphProps = {
-  text?: string;
-  isCenter?: boolean;
+  text: string;
+  isCenter: boolean;
 };
 
 export const Paragraph: FC<ParagraphProps> = (props) => {

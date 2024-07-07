@@ -8,7 +8,7 @@ export const DEFAULT_PARAGRAPH_PROPS: ParagraphProps = {
   isCenter: false,
 };
 
-export const PARAGRAPH_CONFIG: ComponentConfig = {
+export const PARAGRAPH_CONFIG: ComponentConfig<ParagraphProps> = {
   title: '段落',
   defaultProps: DEFAULT_PARAGRAPH_PROPS,
   type: PARAGRAPH_IDENTITY,

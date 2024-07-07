@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 
 export type GetQuestionnaireResponse = BaseEntity & {
   title: string;
-  components: ComponentInfo[];
+  components: ComponentInfo<unknown>[];
 };
 
 export const getQuestionnaire = (id: string) => axios.get<never, GetQuestionnaireResponse>(`/questionnaires/${id}`);

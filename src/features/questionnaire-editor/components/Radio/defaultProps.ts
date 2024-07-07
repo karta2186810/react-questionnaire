@@ -10,5 +10,3 @@ export const DEFAULT_RADIO_PROPS: RadioProps = {
     { label: '選項3', value: '3' },
   ],
 };
-// TODO: 放寬 Canvas Component 較驗
-// TODO: 考慮 value 的產生

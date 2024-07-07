@@ -2,10 +2,10 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { nanoid } from 'nanoid';
-import { ComponentConfig, ComponentInfo, ComponentProps } from '../types';
+import { ComponentConfig, ComponentInfo } from '../types';
 import { WritableDraft } from 'immer';
 
-type Component = ComponentInfo & { frontendId: string; isLocked: boolean; isVisible: boolean };
+type Component = ComponentInfo<Record<string, unknown>> & { frontendId: string; isLocked: boolean; isVisible: boolean };
 type ComponentList = Component[];
 type ComponentListStore = {
   selectedId: string;
@@ -18,8 +18,8 @@ type ComponentListStore = {
   resetList: (list: ComponentList) => void;
   undo: () => void;
   redo: () => void;
-  addComponent: (config: ComponentConfig) => void;
-  updateComponentProps: (id: string, newProps: Partial<ComponentProps>) => void;
+  addComponent: (config: ComponentConfig<Record<string, unknown>>) => void;
+  updateComponentProps: (id: string, newProps: Record<string, unknown>) => void;
   toggleComponentVisible: (id: string, isVisible: boolean) => void;
   toggleComponentLock: (id: string, isLocked: boolean) => void;
   copyComponent: (id: string) => void;

@@ -3,9 +3,9 @@ import { Title as MantineTitle } from '@mantine/core';
 import { DEFAULT_TITLE_PROPS } from './index';
 
 export type TitleProps = {
-  text?: string;
-  order?: number;
-  isCenter?: boolean;
+  text: string;
+  order: number;
+  isCenter: boolean;
 };
 
 export const Title: FC<TitleProps> = (props) => {

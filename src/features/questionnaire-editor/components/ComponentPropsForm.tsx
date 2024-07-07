@@ -1,9 +1,8 @@
-import { useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { Title } from '@mantine/core';
 import { useComponentListStore } from '../store/useComponentList';
 import { useSelectedComponent } from '../hooks/useSelectedComponent';
 import { getConfigByType } from '../components';
-import { ComponentProps } from '../types';
 
 const Empty = () => {
   return (
@@ -18,7 +17,7 @@ export const ComponentPropsForm = () => {
   const selectedComponent = useSelectedComponent();
 
   const handleChange = useCallback(
-    (newProps: Partial<ComponentProps>) => {
+    (newProps: Record<string, unknown>) => {
       if (!selectedComponent?.frontendId) return;
       updateComponent(selectedComponent?.frontendId, newProps);
     },
@@ -32,7 +31,10 @@ export const ComponentPropsForm = () => {
   const config = getConfigByType(type);
   if (!config) return <Empty />;
 
-  const { PropsForm } = config;
+  const PropsForm = config.PropsForm as unknown as FC<{
+    [key: string]: unknown;
+    onChange: (newProps: Record<string, unknown>) => void;
+  }>;
 
   return (
     <div

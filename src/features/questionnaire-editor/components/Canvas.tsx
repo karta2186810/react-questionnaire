@@ -1,14 +1,14 @@
-import { MouseEvent } from 'react';
+import { FC, MouseEvent } from 'react';
 import { clsx } from 'clsx';
 import classes from './Canvas.module.css';
 import { useComponentListStore } from '../store/useComponentList';
 import { ComponentInfo } from '../types';
 import { getConfigByType } from '../components';
 
-const getComponent = (componentInfo: ComponentInfo) => {
+const getComponent = (componentInfo: ComponentInfo<Record<string, unknown>>) => {
   const config = getConfigByType(componentInfo.type);
   if (!config) return null;
-  const Component = config.Component;
+  const Component = config.Component as FC<unknown>;
   return <Component {...componentInfo.props} />;
 };
 

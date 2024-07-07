@@ -8,7 +8,7 @@ export const DEFAULT_TEXTAREA_PROPS: TextareaProps = {
   placeholder: '請輸入...',
 };
 
-export const TEXTAREA_CONFIG: ComponentConfig = {
+export const TEXTAREA_CONFIG: ComponentConfig<TextareaProps> = {
   title: '多行輸入框',
   Component: Textarea,
   PropsForm: TextareaPropsForm,
