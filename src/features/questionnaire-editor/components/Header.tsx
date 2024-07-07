@@ -69,7 +69,7 @@ export const Header = () => {
               <IconTrash className={classes.icon} />
             </ActionIcon>
           </Tooltip>
-          <Tooltip label="隱藏">
+          <Tooltip label={selectedComponent?.isVisible ? '隱藏' : '顯示'}>
             <ActionIcon variant="default" disabled={!selectedComponent} onClick={handleVisible}>
               {selectedComponent?.isVisible ? (
                 <IconEyeOff className={classes.icon} />

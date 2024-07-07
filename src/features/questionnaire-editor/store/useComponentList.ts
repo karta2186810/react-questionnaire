@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import { ComponentConfig, ComponentInfo } from '../types';
 import { WritableDraft } from 'immer';
 
-type Component = ComponentInfo<Record<string, unknown>> & { frontendId: string; isLocked: boolean; isVisible: boolean };
+type Component = ComponentInfo<Record<string, unknown>>;
 type ComponentList = Component[];
 type ComponentListStore = {
   selectedId: string;
@@ -19,6 +19,7 @@ type ComponentListStore = {
   undo: () => void;
   redo: () => void;
   addComponent: (config: ComponentConfig<Record<string, unknown>>) => void;
+  updateComponent: (id: string, newProps: Partial<Pick<Component, 'isLocked' | 'isVisible' | 'title'>>) => void;
   updateComponentProps: (id: string, newProps: Record<string, unknown>) => void;
   toggleComponentVisible: (id: string, isVisible: boolean) => void;
   toggleComponentLock: (id: string, isLocked: boolean) => void;
@@ -95,6 +96,15 @@ export const useComponentListStore = create<ComponentListStore>()(
           state.current.splice(targetIndex, 1);
         });
       },
+      updateComponent(id, newProps) {
+        set((state) => {
+          const index = state.current.findIndex((c) => c.frontendId === id);
+          state.current[index] = {
+            ...state.current[index],
+            ...newProps,
+          };
+        });
+      },
       updateComponentProps(id, newProps) {
         set((state) => {
           const index = state.current.findIndex((c) => c.frontendId === id);
@@ -104,9 +114,22 @@ export const useComponentListStore = create<ComponentListStore>()(
       toggleComponentVisible(id, isVisible) {
         set((state) => {
           const targetIndex = state.current.findIndex((c) => c.frontendId === id);
-          if (targetIndex !== -1) {
-            if (!isVisible) state.selectedId = '';
-            state.current[targetIndex].isVisible = isVisible;
+          state.current[targetIndex].isVisible = isVisible;
+          if (isVisible) {
+            state.selectedId = id;
+          } else {
+            if (state.selectedId === id) {
+              let nextVisibleIndex = (targetIndex + 1) % state.current.length;
+
+              while (nextVisibleIndex !== targetIndex) {
+                if (state.current[nextVisibleIndex].isVisible) {
+                  state.selectedId = state.current[nextVisibleIndex].frontendId;
+                  return;
+                }
+                nextVisibleIndex = (nextVisibleIndex + 1) % state.current.length;
+              }
+              state.selectedId = '';
+            }
           }
         });
       },

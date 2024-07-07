@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 export type ComponentInfo<PropsType> = {
+  frontendId: string;
   title: string;
   type: string;
   props: PropsType;

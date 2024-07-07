@@ -8,8 +8,9 @@ export function getMockQuestionnaire(): GetQuestionnaireResponse {
     title: faker.company.buzzNoun(),
     components: [
       {
+        frontendId: nanoid(),
         type: 'questionnaireTitle',
-        title: '遠端工作成效問卷',
+        title: '標題',
         props: {
           text: '遠端工作成效問卷',
           isCenter: true,
@@ -19,8 +20,9 @@ export function getMockQuestionnaire(): GetQuestionnaireResponse {
         isLocked: false,
       },
       {
+        frontendId: nanoid(),
         type: 'questionnaireTitle',
-        title: '遠端工作成效問卷1',
+        title: '標題',
         props: {
           text: '遠端工作成效問卷1',
           isCenter: false,
@@ -30,8 +32,9 @@ export function getMockQuestionnaire(): GetQuestionnaireResponse {
         isLocked: true,
       },
       {
+        frontendId: nanoid(),
         type: 'questionnaireInput',
-        title: '遠端工作成效問卷',
+        title: '輸入框',
         props: {
           label: '姓名',
           placeholder: '請輸入姓名...',
