@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Stack, Group, TextInput, ActionIcon, Text, Button, Select, Checkbox } from '@mantine/core';
 import { IconTrash, IconPlus } from '@tabler/icons-react';
-import { Formik, FieldArray } from 'formik';
+import { Formik, FieldArray, FormikErrors } from 'formik';
 import { object, array, string } from 'yup';
 import { nanoid } from 'nanoid';
 import { PropsFormProps } from '../../types';
-import { RadioProps } from './Component';
+import { Option, RadioProps } from './Component';
 
 export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
   onChange,
@@ -75,8 +75,8 @@ export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
                         error={
                           Array.isArray(errors.list)
                             ? typeof errors.list[index] === 'string'
-                              ? errors.list[index]
-                              : errors.list[index]?.label
+                              ? (errors.list[index] as string)
+                              : (errors.list[index] as FormikErrors<Option>).label
                             : undefined
                         }
                       />
