@@ -3,6 +3,7 @@ import { InputProps } from '../components/Input';
 import { TitleProps } from '../components/Title';
 import { ParagraphProps } from '../components/Paragraph';
 import { TextareaProps } from '../components/Textarea';
+import { RadioProps } from '../components/Radio';
 
 export type BaseComponentConfig<Identify, PropsType> = {
   title: string;
@@ -11,7 +12,7 @@ export type BaseComponentConfig<Identify, PropsType> = {
   Component: FC<PropsType>;
 };
 
-export type ComponentProps = TitleProps & InputProps & ParagraphProps & TextareaProps;
+export type ComponentProps = TitleProps & InputProps & ParagraphProps & TextareaProps & RadioProps;
 
 export type ComponentInfo = {
   title: string;

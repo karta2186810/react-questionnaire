@@ -1,4 +1,5 @@
 import { Title, Button, Container } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import classes from './home.module.css';
 import { Logo } from '@/components/elements';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -17,7 +18,7 @@ export const Home = () => {
             <Logo className={classes.logo} />
           </div>
           <Title mt="md">問卷調查 | 線上投票</Title>
-          <Button mt="xl" size="lg" rightSection={<IconChevronRight />}>
+          <Button mt="xl" size="lg" component={Link} to="/management/list" rightSection={<IconChevronRight />}>
             馬上開始
           </Button>
         </div>

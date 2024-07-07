@@ -2,6 +2,7 @@
   padding-top: rem(20px);
 }
 .component-wrapper {
+  margin-top: rem(8px);
   padding: rem(12px);
   border-radius: var(--mantine-radius-sm);
   cursor: pointer;

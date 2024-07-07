@@ -3,6 +3,7 @@ import { TITLE_CONFIG } from './Title';
 import { INPUT_CONFIG } from './Input';
 import { PARAGRAPH_CONFIG } from './Paragraph';
 import { TEXTAREA_CONFIG } from './Textarea';
+import { RADIO_CONFIG } from './Radio';
 import { useComponentListStore } from '../store/useComponentList';
 import { ComponentConfig } from '../types';
 import classes from './ComponentLib.module.css';
@@ -22,7 +23,7 @@ const COMPONENT_CONFIG_GROUP: ComponentConfigGroup[] = [
   {
     groupId: 'input',
     title: '輸入組件',
-    configs: [INPUT_CONFIG, TEXTAREA_CONFIG],
+    configs: [INPUT_CONFIG, TEXTAREA_CONFIG, RADIO_CONFIG],
   },
 ];
 
@@ -42,7 +43,7 @@ export const ComponentLib = () => {
               {group.configs.map((config) => {
                 const Component = config.Component;
                 return (
-                  <div>
+                  <div key={config.type}>
                     <Title order={6}>{config.title}</Title>
                     <div
                       className={classes['component-wrapper']}

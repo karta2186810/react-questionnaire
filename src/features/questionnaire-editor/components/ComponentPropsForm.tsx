@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Title } from '@mantine/core';
 import { useComponentListStore } from '../store/useComponentList';
 import { useSelectedComponent } from '../hooks/useSelectedComponent';
@@ -16,10 +17,13 @@ export const ComponentPropsForm = () => {
   const updateComponent = useComponentListStore((state) => state.updateComponentProps);
   const selectedComponent = useSelectedComponent();
 
-  function handleChange(newProps: Partial<ComponentProps>) {
-    if (!selectedComponent) return;
-    updateComponent(selectedComponent?.frontendId, newProps);
-  }
+  const handleChange = useCallback(
+    (newProps: Partial<ComponentProps>) => {
+      if (!selectedComponent?.frontendId) return;
+      updateComponent(selectedComponent?.frontendId, newProps);
+    },
+    [selectedComponent?.frontendId, updateComponent],
+  );
 
   if (!selectedComponent) return <Empty />;
 
