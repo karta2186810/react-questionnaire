@@ -30,9 +30,11 @@ export const Edit = () => {
     <div className={classes['edit-layout']}>
       <Header />
       <div className={classes['content-wrapper']}>
-        <Card className={classes.left} radius={0}>
-          <LeftPanel />
-        </Card>
+        <div className={classes.left}>
+          <Card className={classes.scroll} radius={0}>
+            <LeftPanel />
+          </Card>
+        </div>
         <main className={classes.main} onClick={() => setSelectedId('')}>
           <Card className={classes.canvas} withBorder shadow="md">
             <LoadingOverlay visible={isFetching} zIndex={1000} />
@@ -41,9 +43,11 @@ export const Edit = () => {
             </div>
           </Card>
         </main>
-        <Card className={classes.right} radius={0}>
-          <RightPanel />
-        </Card>
+        <div className={classes.right}>
+          <Card className={classes.scroll} radius={0}>
+            <RightPanel />
+          </Card>
+        </div>
       </div>
     </div>
   );

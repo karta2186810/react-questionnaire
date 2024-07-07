@@ -20,6 +20,8 @@
 .left,
 .right {
   width: rem(320px);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .main {

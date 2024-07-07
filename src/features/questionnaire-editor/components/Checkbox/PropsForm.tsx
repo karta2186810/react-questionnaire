@@ -1,19 +1,13 @@
 import { FC } from 'react';
-import { Stack, Group, TextInput, ActionIcon, Text, Button, Select, Checkbox } from '@mantine/core';
+import { Stack, Group, TextInput, ActionIcon, Text, Button, Checkbox } from '@mantine/core';
 import { IconTrash, IconPlus } from '@tabler/icons-react';
 import { Formik, FieldArray, FormikErrors } from 'formik';
 import { object, array, string } from 'yup';
 import { nanoid } from 'nanoid';
 import { PropsFormProps } from '../../types';
-import { Option, RadioProps } from './Component';
+import { Option, CheckboxProps } from './Component';
 
-export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
-  onChange,
-  title,
-  defaultChecked,
-  vertical,
-  list = [],
-}) => {
+export const CheckboxPropsForm: FC<PropsFormProps<CheckboxProps>> = ({ onChange, title, vertical, list = [] }) => {
   const schema = object().shape({
     title: string().required('必填'),
     list: array(
@@ -32,14 +26,13 @@ export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
       initialValues={{
         title,
         list,
-        defaultChecked,
         vertical,
       }}
       onSubmit={(values) => {
         onChange?.(values);
       }}
     >
-      {({ handleSubmit, handleChange, values, setFieldValue, errors }) => (
+      {({ handleSubmit, handleChange, values, errors }) => (
         <Stack py="md" gap="md">
           <TextInput
             label="標題"
@@ -61,7 +54,16 @@ export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
               {(arrayHelpers) => (
                 <Stack>
                   {values.list.map((option, index) => (
-                    <Group key={option.value} gap={0}>
+                    <Group key={option.value} gap="sm">
+                      <Checkbox
+                        name={`list[${index}].checked`}
+                        checked={option.checked}
+                        disabled={errors.list !== undefined}
+                        onChange={(e) => {
+                          handleChange(e);
+                          handleSubmit();
+                        }}
+                      />
                       <TextInput
                         name={`list[${index}].label`}
                         value={option.label}
@@ -85,9 +87,6 @@ export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
                         color="red"
                         style={{ visibility: index <= 1 ? 'hidden' : 'visible' }}
                         onClick={() => {
-                          if (option.value === values.defaultChecked) {
-                            setFieldValue('defaultChecked', values.list[0].value);
-                          }
                           arrayHelpers.remove(index);
                           handleSubmit();
                         }}
@@ -110,6 +109,7 @@ export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
                       arrayHelpers.push({
                         label: `選項${values.list.length + 1}`,
                         value: nanoid(5),
+                        checked: false,
                       });
                       handleSubmit();
                     }}
@@ -120,16 +120,6 @@ export const RadioPropsForm: FC<PropsFormProps<RadioProps>> = ({
               )}
             </FieldArray>
           </div>
-          <Select
-            label="默認選中"
-            data={values.list}
-            disabled={errors.list !== undefined}
-            value={defaultChecked}
-            onChange={(value) => {
-              setFieldValue('defaultChecked', value);
-              handleSubmit();
-            }}
-          />
           <Checkbox
             label="垂直排列"
             name="vertical"
