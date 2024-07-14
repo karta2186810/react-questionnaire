@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-export type ComponentInfo<PropsType> = {
+export type ComponentInfo = {
   frontendId: string;
   title: string;
   type: string;
-  props: PropsType;
+  props: Record<string, unknown>;
   isLocked: boolean;
   isVisible: boolean;
 };

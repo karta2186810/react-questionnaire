@@ -5,7 +5,8 @@ import { BaseEntity } from '@/types';
 
 export type GetQuestionnaireResponse = BaseEntity & {
   title: string;
-  components: ComponentInfo<Record<string, unknown>>[];
+  isPublished: boolean;
+  components: ComponentInfo[];
 };
 
 export const getQuestionnaire = (id: string) => axios.get<never, GetQuestionnaireResponse>(`/questionnaires/${id}`);
@@ -19,6 +20,7 @@ export const useQuestionnaire = (id: string) => {
     initialData: {
       _id: '',
       title: '',
+      isPublished: false,
       components: [],
     },
   });

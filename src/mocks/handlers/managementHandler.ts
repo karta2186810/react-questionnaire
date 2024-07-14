@@ -57,7 +57,6 @@ export const managementHandler = [
     if (targetIndex === -1) return HttpResponse.json({ message: 'ID不存在' }, { status: 404 });
     const body = await request.json();
     questionnaires[targetIndex] = { ...questionnaires[targetIndex], ...body };
-    console.log(questionnaires[targetIndex]);
     return HttpResponse.json({ success: true });
   }),
   http.post('/api/questionnaires/:id/duplicate', ({ params }) => {

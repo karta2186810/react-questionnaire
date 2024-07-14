@@ -5,6 +5,7 @@ import { GetQuestionnaireResponse } from '@/features/questionnaire-editor/api/ge
 export function getMockQuestionnaire(): GetQuestionnaireResponse {
   return {
     _id: nanoid(),
+    isPublished: false,
     title: faker.company.buzzNoun(),
     components: [
       {

@@ -5,4 +5,7 @@ export const questionnaireHandler = [
   http.get('/api/questionnaires/:id', () => {
     return HttpResponse.json(getMockQuestionnaire());
   }),
+  http.patch('/api/questionnaires/:id/edit', () => {
+    return HttpResponse.json({ success: true });
+  }),
 ];

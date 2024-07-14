@@ -5,7 +5,7 @@ import { useComponentListStore } from '../store/useComponentList';
 import { ComponentInfo } from '../types';
 import { getConfigByType } from '../components';
 
-const getComponent = (componentInfo: ComponentInfo<Record<string, unknown>>) => {
+const getComponent = (componentInfo: ComponentInfo) => {
   const config = getConfigByType(componentInfo.type);
   if (!config) return null;
   const Component = config.Component as FC<unknown>;

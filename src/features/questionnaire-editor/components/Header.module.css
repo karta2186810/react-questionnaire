@@ -1,3 +1,9 @@
 .icon {
   width: 16px;
 }
+.operation-buttons {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
