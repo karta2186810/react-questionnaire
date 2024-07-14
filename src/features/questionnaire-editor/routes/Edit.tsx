@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, LoadingOverlay } from '@mantine/core';
 import { useNotification } from '@/hooks/useNotification';
@@ -11,11 +11,14 @@ import { Header } from '../components/Header';
 import { Canvas } from '../components/Canvas';
 import { LeftPanel } from '../components/LeftPanel';
 import { RightPanel } from '../components/RightPanel';
+import { ComponentInfo } from '../types';
 import classes from './Edit.module.css';
 
 export const Edit = () => {
   useEditorHotKeys();
-
+  const isMounted = useRef(false);
+  const isFirstFetching = useRef(true);
+  const [hasPendingChanges, setHasPendingChanges] = useState(false);
   const { id = '' } = useParams();
   const { data, isFetching } = useQuestionnaire(id);
   const { componentList, resetList, setSelectedId } = useComponentListStore((state) => ({
@@ -28,33 +31,71 @@ export const Edit = () => {
     isPublished: state.isPublished,
     resetPageInfo: state.resetPageInfo,
   }));
+  const { isPending: isUpdating, mutateAsync: updateQuestionnaire } = useUpdateQuestionnaire(id);
 
   useEffect(() => {
-    const components = data.components;
-    resetList(components);
-    if (components.length) setSelectedId(components[0].frontendId);
-    resetPageInfo({
-      title: data.title,
-      isPublished: data.isPublished,
-    });
+    if (isMounted.current) {
+      const components = data.components;
+      resetList(components);
+      if (components.length) setSelectedId(components[0].frontendId);
+      resetPageInfo({
+        title: data.title,
+        isPublished: data.isPublished,
+      });
+      isFirstFetching.current = false;
+    } else {
+      isMounted.current = true;
+    }
   }, [data, resetList, setSelectedId, resetPageInfo]);
 
-  const mutation = useUpdateQuestionnaire(id);
   const notification = useNotification();
-  async function handleSave() {
-    await mutation.mutateAsync({ title, isPublished, list: componentList });
+
+  const submitQuestionnaire = useCallback(
+    async ({
+      title = '',
+      isPublished = false,
+      list = [],
+    }: {
+      title?: string;
+      isPublished?: boolean;
+      list?: ComponentInfo[];
+    }) => {
+      setHasPendingChanges(false);
+      await updateQuestionnaire({ title, isPublished, list });
+    },
+    [updateQuestionnaire],
+  );
+
+  async function handleSaving() {
+    await submitQuestionnaire({ title, isPublished, list: componentList });
     notification.success({ message: '保存成功' });
   }
-  async function handlePublish() {
+  async function handlePublishing() {
     const newPublished = !isPublished;
-    await mutation.mutateAsync({ isPublished: newPublished });
+    await updateQuestionnaire({ isPublished: newPublished });
     notification.success({ message: newPublished ? '發布成功' : '已取消發布' });
     resetPageInfo({ isPublished: newPublished });
   }
 
+  useEffect(() => {
+    if (isFirstFetching.current) return;
+    console.log(componentList, title);
+    const timer = setTimeout(() => {
+      setHasPendingChanges(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [componentList, title]);
+
+  useEffect(() => {
+    if (isFirstFetching.current) return;
+    if (!isUpdating && hasPendingChanges) {
+      submitQuestionnaire({ title, list: componentList });
+    }
+  }, [isUpdating, hasPendingChanges, submitQuestionnaire, componentList, title]);
+
   return (
     <div className={classes['edit-layout']}>
-      <Header onSave={handleSave} onPublish={handlePublish} loading={mutation.isPending} />
+      <Header onSave={handleSaving} onPublish={handlePublishing} loading={isUpdating} />
       <div className={classes['content-wrapper']}>
         <div className={classes.left}>
           <Card className={classes.scroll} radius={0}>
