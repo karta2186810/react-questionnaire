@@ -16,8 +16,7 @@ import classes from './Edit.module.css';
 
 export const Edit = () => {
   useEditorHotKeys();
-  const isMounted = useRef(false);
-  const isFirstFetching = useRef(true);
+  const isChangedByRemote = useRef(true);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
   const { id = '' } = useParams();
   const { data, isFetching } = useQuestionnaire(id);
@@ -34,18 +33,14 @@ export const Edit = () => {
   const { isPending: isUpdating, mutateAsync: updateQuestionnaire } = useUpdateQuestionnaire(id);
 
   useEffect(() => {
-    if (isMounted.current) {
-      const components = data.components;
-      resetList(components);
-      if (components.length) setSelectedId(components[0].frontendId);
-      resetPageInfo({
-        title: data.title,
-        isPublished: data.isPublished,
-      });
-      isFirstFetching.current = false;
-    } else {
-      isMounted.current = true;
-    }
+    const components = data.components;
+    resetList(components);
+    if (components.length) setSelectedId(components[0].frontendId);
+    resetPageInfo({
+      title: data.title,
+      isPublished: data.isPublished,
+    });
+    isChangedByRemote.current = true;
   }, [data, resetList, setSelectedId, resetPageInfo]);
 
   const notification = useNotification();
@@ -78,20 +73,21 @@ export const Edit = () => {
   }
 
   useEffect(() => {
-    if (isFirstFetching.current) return;
-    console.log(componentList, title);
-    const timer = setTimeout(() => {
-      setHasPendingChanges(true);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [componentList, title]);
-
-  useEffect(() => {
-    if (isFirstFetching.current) return;
     if (!isUpdating && hasPendingChanges) {
       submitQuestionnaire({ title, list: componentList });
     }
-  }, [isUpdating, hasPendingChanges, submitQuestionnaire, componentList, title]);
+  }, [isUpdating, hasPendingChanges, submitQuestionnaire, setHasPendingChanges, componentList, title]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isChangedByRemote.current) {
+        isChangedByRemote.current = false;
+      } else {
+        setHasPendingChanges(true);
+      }
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [componentList, title]);
 
   return (
     <div className={classes['edit-layout']}>
