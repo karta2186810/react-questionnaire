@@ -4,13 +4,15 @@ import { useSelectedComponent } from './useSelectedComponent';
 
 export const useEditorHotKeys = () => {
   const selectedComponent = useSelectedComponent();
-  const { removeComponent, copyComponent, pasteComponent, toggleComponentLock, selectComponent } =
+  const { undo, redo, removeComponent, copyComponent, pasteComponent, toggleComponentLock, selectComponent } =
     useComponentListStore((state) => ({
       removeComponent: state.removeComponent,
       copyComponent: state.copyComponent,
       pasteComponent: state.pasteComponent,
       toggleComponentLock: state.toggleComponentLock,
       selectComponent: state.selectComponent,
+      undo: state.undo,
+      redo: state.redo,
     }));
 
   function removeSelectedElement() {
@@ -35,6 +37,8 @@ export const useEditorHotKeys = () => {
       ['mod+L', toggleSelectedComponentLock],
       ['ArrowUp', () => selectComponent('prev')],
       ['ArrowDown', () => selectComponent('next')],
+      ['mod+Z', undo],
+      ['mod+Shift+Z', redo],
     ],
     undefined,
     false,

@@ -15,6 +15,8 @@ import {
   IconChevronDown,
   IconPencil,
   IconX,
+  IconArrowForward,
+  IconArrowBack,
 } from '@tabler/icons-react';
 import { useComponentListStore } from '../store/useComponentList';
 import { usePageInfoStore } from '../store/usePageInfo';
@@ -78,6 +80,10 @@ type HeaderProps = {
 export const Header: FC<HeaderProps> = ({ loading, onSave, onPublish }) => {
   const selectedComponent = useSelectedComponent();
   const {
+    previousComponentList,
+    forwardComponentList,
+    undoComponentList,
+    redoComponentList,
     copiedComponent,
     copyComponent,
     pasteComponent,
@@ -86,6 +92,10 @@ export const Header: FC<HeaderProps> = ({ loading, onSave, onPublish }) => {
     toggleComponentLock,
     selectComponent,
   } = useComponentListStore((state) => ({
+    previousComponentList: state.previous,
+    forwardComponentList: state.forward,
+    undoComponentList: state.undo,
+    redoComponentList: state.redo,
     copiedComponent: state.copiedComponent,
     removeComponent: state.removeComponent,
     toggleComponentVisible: state.toggleComponentVisible,
@@ -127,6 +137,12 @@ export const Header: FC<HeaderProps> = ({ loading, onSave, onPublish }) => {
           <HeaderTitle title={title} onChange={(title) => resetPageInfo({ title })} />
         </Group>
         <Group gap="sm" className={classes['operation-buttons']}>
+          <ControllerButton label="撤銷" disabled={!previousComponentList.length} onClick={undoComponentList}>
+            <IconArrowBack className={classes.icon} />
+          </ControllerButton>
+          <ControllerButton label="重做" disabled={!forwardComponentList.length} onClick={redoComponentList}>
+            <IconArrowForward className={classes.icon} />
+          </ControllerButton>
           <ControllerButton label="刪除" disabled={!selectedComponent} onClick={handleDelete}>
             <IconTrash className={classes.icon} />
           </ControllerButton>

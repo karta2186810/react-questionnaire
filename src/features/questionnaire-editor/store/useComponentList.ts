@@ -8,6 +8,7 @@ import { WritableDraft } from 'immer';
 type ComponentListStore = {
   isTracking: boolean;
   selectedId: string;
+  listVersion: string;
   previous: ComponentInfo[][];
   current: ComponentInfo[];
   forward: ComponentInfo[][];
@@ -50,6 +51,8 @@ export const useComponentListStore = create<ComponentListStore>()(
         previous: [],
         current: [],
         forward: [],
+        // 當前組件列表版本號，用於刷新組件屬性表單
+        listVersion: nanoid(),
         copiedComponent: null,
         setSelectedId(id) {
           set((state) => {
@@ -58,6 +61,7 @@ export const useComponentListStore = create<ComponentListStore>()(
         },
         resetList(list = []) {
           set((state) => {
+            state.isTracking = false;
             state.previous = [];
             state.current = list;
             state.forward = [];
@@ -175,18 +179,22 @@ export const useComponentListStore = create<ComponentListStore>()(
         },
         undo() {
           set((state) => {
-            state.isTracking = false;
             if (!state.previous.length) return;
+
+            state.isTracking = false;
             state.forward.push(JSON.parse(JSON.stringify(state.current)) as ComponentInfo[]);
             state.current = state.previous.pop()!;
+            state.listVersion = nanoid();
           });
         },
         redo() {
           set((state) => {
-            state.isTracking = false;
             if (!state.forward.length) return;
+            state.listVersion = nanoid();
+            state.isTracking = false;
             state.previous.push(JSON.parse(JSON.stringify(state.current)) as ComponentInfo[]);
             state.current = state.forward.pop()!;
+            state.listVersion = nanoid();
           });
         },
       })),

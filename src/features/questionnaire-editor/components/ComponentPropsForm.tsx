@@ -13,7 +13,10 @@ const Empty = () => {
 };
 
 export const ComponentPropsForm = () => {
-  const updateComponent = useComponentListStore((state) => state.updateComponentProps);
+  const { updateComponent, listVersion } = useComponentListStore((state) => ({
+    updateComponent: state.updateComponentProps,
+    listVersion: state.listVersion,
+  }));
   const selectedComponent = useSelectedComponent();
 
   const handleChange = useCallback(
@@ -44,7 +47,7 @@ export const ComponentPropsForm = () => {
         pointerEvents: selectedComponent?.isLocked ? 'none' : 'auto',
       }}
     >
-      <PropsForm {...props} onChange={handleChange} key={selectedComponent.frontendId} />
+      <PropsForm {...props} onChange={handleChange} key={selectedComponent.frontendId + listVersion} />
     </div>
   );
 };
