@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { IS_DEV } from './config';
 import { setupMockServer } from './mocks';
@@ -10,8 +11,10 @@ async function bootstrap() {
   if (IS_DEV) await setupMockServer();
 
   ReactDOM.createRoot(document.getElementById('root')!).render(
-    <AppProvider>
-      <App />
-    </AppProvider>,
+    <React.StrictMode>
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </React.StrictMode>,
   );
 }
