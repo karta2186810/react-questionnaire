@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Group, Pill, Button, Divider, Text, ActionIcon } from '@mantine/core';
-import { IconTrash, IconCopy, IconEdit, IconReportAnalytics, IconStar, IconStarFilled } from '@tabler/icons-react';
+import { IconTrash, IconCopy, IconStar, IconStarFilled } from '@tabler/icons-react';
 import { Questionnaire } from '../types';
 
 type QuestionnaireCardProps = Questionnaire & {
@@ -47,10 +47,10 @@ export const QuestionnaireCard: FC<QuestionnaireCardProps> = (props) => {
       </Card.Section>
       <Group pt={12} justify="space-between" align="center">
         <Group gap="xs">
-          <Button size="xs" variant="outline" leftSection={<IconEdit width={16} />} disabled={props.loading}>
+          {/* <Button size="xs" variant="outline" leftSection={<IconEdit width={16} />} disabled={props.loading}>
             編輯問卷
-          </Button>
-          <Button
+          </Button> */}
+          {/* <Button
             size="xs"
             variant="outline"
             color="teal"
@@ -58,7 +58,7 @@ export const QuestionnaireCard: FC<QuestionnaireCardProps> = (props) => {
             disabled={props.loading}
           >
             問卷統計
-          </Button>
+          </Button> */}
         </Group>
         <Group gap="xs">
           <Button

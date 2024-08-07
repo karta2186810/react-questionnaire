@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Group, Button, ActionIcon, Title, Tooltip, Input } from '@mantine/core';
 import {
   IconChevronLeft,
@@ -131,7 +132,12 @@ export const Header: FC<HeaderProps> = ({ loading, onSave, onPublish }) => {
     <Card withBorder>
       <Group justify="space-between" align="center">
         <Group gap="sm">
-          <Button variant="transparent" leftSection={<IconChevronLeft width={20} />}>
+          <Button
+            component={Link}
+            to="/management/list"
+            variant="transparent"
+            leftSection={<IconChevronLeft width={20} />}
+          >
             返回
           </Button>
           <HeaderTitle title={title} onChange={(title) => resetPageInfo({ title })} />
